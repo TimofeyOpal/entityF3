@@ -26,6 +26,7 @@ namespace entityF3
                 .UseSqlServer(connectionString)
                 .Options;
 
+
             using (ApplicationContext db = new ApplicationContext(options))
             {
                 var users = db.Users.ToList();
@@ -34,7 +35,15 @@ namespace entityF3
                     Console.WriteLine($"{u.Id}.{u.Name} - {u.Age}");
                 }
             }
-            Console.Read();
+            using (ApplicationContext db = new ApplicationContext(options))
+            {
+                User user3 = new User { Name = "ffff", Age = 32 };
+
+                db.Users.Add(user3);
+                db.SaveChanges();
+            }
+
+                Console.Read();
 
         }
     }
